@@ -58,12 +58,12 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: |
-            wrangler pages deploy static --project-name=pay-ubq-fi-2
+            pages deploy static --project-name=pay-ubq-fi-2
             echo '{
               "USE_RELOADLY_SANDBOX": "${{ secrets.USE_RELOADLY_SANDBOX }}",
               "RELOADLY_API_CLIENT_ID": "${{ secrets.RELOADLY_API_CLIENT_ID }}",
               "RELOADLY_API_CLIENT_SECRET": "${{ secrets.RELOADLY_API_CLIENT_SECRET }}"
-            }' | wrangler pages secret bulk --project-name=pay-ubq-fi-2
+            }' | pages secret bulk --project-name=pay-ubq-fi-2
 
       - name: Write Deployment URL to Summary
         run: |
