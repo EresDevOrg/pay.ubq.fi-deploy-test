@@ -57,7 +57,8 @@ jobs:
           wranglerVersion: "3.86.0"
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-
+          command: |
+            pages deploy static --project-name=pay-ubq-fi-2
         env:
           USE_RELOADLY_SANDBOX: ${{ secrets.USE_RELOADLY_SANDBOX }}
           RELOADLY_API_CLIENT_ID: ${{ secrets.RELOADLY_API_CLIENT_ID }}
