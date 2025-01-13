@@ -59,10 +59,10 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: |
             pages deploy static --project-name=pay-ubq-fi-2
-            pages secret put USE_RELOADLY_SANDBOX ${{ env.USE_RELOADLY_SANDBOX }} --project-name=pay-ubq-fi-2
-            pages secret put RELOADLY_API_CLIENT_ID ${{ env.RELOADLY_API_CLIENT_ID }} --project-name=pay-ubq-fi-2
-            pages secret put RELOADLY_API_CLIENT_SECRET ${{ env.RELOADLY_API_CLIENT_SECRET }} --project-name=pay-ubq-fi-2
-
+          secrets: |
+            USE_RELOADLY_SANDBOX
+            RELOADLY_API_CLIENT_ID
+            RELOADLY_API_CLIENT_SECRET
         env:
           USE_RELOADLY_SANDBOX: ${{ secrets.USE_RELOADLY_SANDBOX }}
           RELOADLY_API_CLIENT_ID: ${{ secrets.RELOADLY_API_CLIENT_ID }}
