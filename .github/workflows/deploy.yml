@@ -67,7 +67,7 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: |
             pages deploy static --project-name=pay-ubq-fi-2
-            pages secret bulk --project-name=pay-ubq-fi-2
+            pages secret bulk --project-name=pay-ubq-fi-2 secrets.json
 
       - name: Delete secrets.json
         run: rm secrets.json
