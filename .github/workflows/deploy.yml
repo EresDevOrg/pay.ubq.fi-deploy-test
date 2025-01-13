@@ -51,6 +51,14 @@ jobs:
           RPC_PROVIDER_URL: "https://rpc.ankr.com/gnosis"
           UBIQUIBOT_PRIVATE_KEY: ${{ secrets.UBIQUIBOT_APP_PRIVATE_KEY_TEST }}
 
+      - name: Create secrets.json
+        run: |
+          echo '{
+            "USE_RELOADLY_SANDBOX": "${{ secrets.USE_RELOADLY_SANDBOX }}",
+            "RELOADLY_API_CLIENT_ID": "${{ secrets.RELOADLY_API_CLIENT_ID }}",
+            "RELOADLY_API_CLIENT_SECRET": "${{ secrets.RELOADLY_API_CLIENT_SECRET }}"
+          }' > secrets.json
+
       - uses: cloudflare/wrangler-action@v3
         id: wrangler_deploy
         with:
@@ -59,11 +67,10 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: |
             pages deploy static --project-name=pay-ubq-fi-2
-            echo '{
-              "USE_RELOADLY_SANDBOX": "${{ secrets.USE_RELOADLY_SANDBOX }}",
-              "RELOADLY_API_CLIENT_ID": "${{ secrets.RELOADLY_API_CLIENT_ID }}",
-              "RELOADLY_API_CLIENT_SECRET": "${{ secrets.RELOADLY_API_CLIENT_SECRET }}"
-            }' | pages secret bulk --project-name=pay-ubq-fi-2
+            pages secret bulk --project-name=pay-ubq-fi-2
+
+      - name: Delete secrets.json
+        run: rm secrets.json
 
       - name: Write Deployment URL to Summary
         run: |
