@@ -58,7 +58,7 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           environment: preview
-          command: pages deploy static --project-name=pay-ubq-fi-2
+          command: pages deploy static --project-name=pay-ubq-fi-2  --name pay-ubq-fi-2
           secrets: |
             USE_RELOADLY_SANDBOX
             RELOADLY_API_CLIENT_ID
