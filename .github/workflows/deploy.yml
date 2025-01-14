@@ -51,6 +51,23 @@ jobs:
           RPC_PROVIDER_URL: "https://rpc.ankr.com/gnosis"
           UBIQUIBOT_PRIVATE_KEY: ${{ secrets.UBIQUIBOT_APP_PRIVATE_KEY_TEST }}
 
+      - name: Extract Project Name
+        id: extract_project_name
+        run: |
+          project_name=$(grep -oP '(?<=name = ").*(?=")' wrangler.toml)
+          echo "project_name=$project_name" >> $GITHUB_OUTPUT
+
+      - name: List Projects
+        id: list_projects
+        run: |
+          project_exists=$(wrangler pages project list --json | jq -r '.projects[] | select(.name == "${{ steps.extract_project_name.outputs.project_name }}") | .name')
+          echo "project_exists=$project_exists" >> $GITHUB_OUTPUT
+
+      - name: Create Project if Not Exists
+        if: steps.list_projects.outputs.project_exists == ''
+        run: |
+          wrangler pages project create ${{ steps.extract_project_name.outputs.project_name }} --production-branch=development
+
       - name: Create secrets.json
         run: |
           echo '{
