@@ -60,13 +60,13 @@ jobs:
       - name: List Projects
         id: list_projects
         run: |
-          project_exists=$(wrangler pages project list --json | jq -r '.projects[] | select(.name == "${{ steps.extract_project_name.outputs.project_name }}") | .name')
+          project_exists=$(yarn wrangler pages project list --json | jq -r '.projects[] | select(.name == "${{ steps.extract_project_name.outputs.project_name }}") | .name')
           echo "project_exists=$project_exists" >> $GITHUB_OUTPUT
 
       - name: Create Project if Not Exists
         if: steps.list_projects.outputs.project_exists == ''
         run: |
-          wrangler pages project create ${{ steps.extract_project_name.outputs.project_name }} --production-branch=development
+          yarn wrangler pages project create ${{ steps.extract_project_name.outputs.project_name }} --production-branch=development
 
       - name: Create secrets.json
         run: |
